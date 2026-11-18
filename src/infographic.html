@@ -2,263 +2,508 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>The World's News in One Picture — Tuesday 17 November 2026</title>
+<title>The World on One Page — Tuesday 17 November 2026</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     width: 1024px; height: 1024px;
-    background: #f6efdd; color: #16130c;
+    background: #f4ecd7; color: #17130b;
     font-family: "Noto Sans", "DejaVu Sans", Arial, sans-serif;
     overflow: hidden; position: relative;
-    padding: 14px 22px 10px 22px;
+    padding: 12px 20px 8px 20px;
     display: flex; flex-direction: column;
   }
   body::before {
     content: ""; position: absolute; inset: 0; pointer-events: none;
-    background-image: radial-gradient(rgba(120,95,40,.055) 1px, transparent 1.3px);
+    background-image: radial-gradient(rgba(120,95,40,.05) 1px, transparent 1.3px);
     background-size: 7px 7px;
   }
   .red { color: #b3202a; }
 
+  /* ---------- flag badges ---------- */
+  .flag {
+    display: block; width: 26px; height: 17.3px; flex: 0 0 auto;
+    border: 1px solid rgba(23,19,11,.5); border-radius: 2px;
+    background: #fff;
+  }
+  .flags { display: flex; gap: 3px; align-items: center; }
+  .hero .flag { width: 29px; height: 19.3px; }
+  .also .flag { display: inline-block; width: 19px; height: 12.7px; vertical-align: -1.5px; margin-right: 4px; }
+
   /* ---------- masthead ---------- */
   header { position: relative; z-index: 1; }
-  .mast-top {
+  .rule-top { border-top: 5px solid #17130b; border-bottom: 1px solid #17130b; height: 3px; }
+  .furniture {
     display: flex; justify-content: space-between; align-items: baseline;
-    border-top: 3.5px solid #16130c; border-bottom: 1px solid #16130c;
-    padding: 4px 2px 3px 2px; font-size: 11.5px; font-weight: 700; letter-spacing: 1.6px;
+    padding: 3px 2px 0 2px; font-size: 10.5px; font-weight: 700;
+    letter-spacing: 1.8px; color: #57503c;
   }
-  .mast-top .brand { color: #b3202a; font-size: 13.5px; letter-spacing: 3.2px; }
-  .mast-top .side { color: #4c4636; font-size: 10.5px; }
-  h1.dateline {
+  .nameplate {
     font-family: "Noto Serif", "DejaVu Serif", Georgia, serif;
     font-weight: 900; text-align: center;
-    font-size: 49px; line-height: 1.02; letter-spacing: -0.5px;
-    padding: 6px 0 4px 0;
+    font-size: 47px; line-height: 1.04; letter-spacing: 1.2px;
+    padding: 3px 0 2px 0; color: #17130b;
   }
-  h1.dateline .dow { color: #b3202a; }
-  .mast-sub {
-    text-align: center; font-size: 11.5px; font-weight: 700; letter-spacing: 2.6px;
-    color: #4c4636; padding-bottom: 5px;
+  .rule-red { border-top: 3px solid #b3202a; border-bottom: 1px solid #17130b; height: 2.5px; }
+  .tagline {
+    text-align: center; font-size: 12.5px; font-weight: 800;
+    letter-spacing: 3.4px; color: #b3202a; padding: 4px 0 1px 0;
   }
-  .rule-double { border-top: 4px solid #16130c; border-bottom: 1px solid #16130c; height: 3px; }
+  .dateline {
+    display: flex; align-items: center; gap: 14px; padding: 1px 0 5px 0;
+  }
+  .dateline .ln { flex: 1; border-top: 1px solid #17130b; }
+  .dateline .dt {
+    font-family: "Noto Serif", "DejaVu Serif", Georgia, serif;
+    font-weight: 900; font-size: 33px; line-height: 1.05; white-space: nowrap;
+  }
+  .dateline .dt .dow { color: #b3202a; }
 
-  /* ---------- shared bits ---------- */
-  .tagrow { display: flex; align-items: center; gap: 6px; }
-  .num {
-    flex: 0 0 auto; width: 17px; height: 17px; border-radius: 50%;
-    background: #b3202a; color: #fff; font-size: 10.5px; font-weight: 800;
-    text-align: center; line-height: 17px;
+  /* ---------- day in numbers ---------- */
+  .numbers {
+    display: flex; align-items: stretch; margin-top: 2px;
+    border: 1.6px solid #17130b; background: #fffdf4; position: relative; z-index: 1;
   }
-  .tag { font-size: 9.5px; font-weight: 800; letter-spacing: 1.5px; color: #b3202a; text-transform: uppercase; }
+  .numbers .nlab {
+    flex: 0 0 118px; background: #17130b; color: #f4ecd7;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: "Noto Serif", Georgia, serif; font-weight: 900;
+    font-size: 12.5px; line-height: 1.25; letter-spacing: 1.6px; text-align: center;
+    padding: 4px 2px;
+  }
+  .numbers .stat {
+    flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 3px 6px 4px 6px; text-align: center;
+  }
+  .numbers .stat + .stat { border-left: 1px solid rgba(23,19,11,.4); }
+  .numbers .big {
+    font-family: "Noto Serif", Georgia, serif; font-weight: 900;
+    font-size: 24px; line-height: 1.05; color: #b3202a;
+  }
+  .numbers .cap { font-size: 9px; font-weight: 800; letter-spacing: 1.4px; color: #45402e; margin-top: 1px; }
 
   /* ---------- heroes ---------- */
   .heroes { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 8px; position: relative; z-index: 1; }
   .card.hero {
-    height: 232px; border: 1.6px solid #16130c; background: #fbf7ea;
-    padding: 8px 11px 7px 11px; overflow: hidden;
-    box-shadow: 3px 3px 0 rgba(22,19,12,.85);
+    height: 234px; border: 1.6px solid #17130b; background: #fffdf4;
+    overflow: hidden; box-shadow: 3px 3px 0 rgba(23,19,11,.8);
+    display: flex; flex-direction: column;
   }
-  .card.hero .art { height: 90px; border: 1px solid rgba(22,19,12,.55); margin-bottom: 7px; overflow: hidden; }
-  .card.hero .art svg { display: block; width: 100%; height: 100%; }
+  .hero .band {
+    flex: 0 0 auto; background: #17130b; color: #f4ecd7;
+    display: flex; align-items: center; gap: 7px; padding: 3.5px 8px;
+  }
+  .hero .band .hn {
+    background: #b3202a; color: #fff; font-size: 11px; font-weight: 800;
+    min-width: 17px; height: 17px; line-height: 17px; text-align: center; border-radius: 2px;
+  }
+  .hero .band .tag { font-size: 9.5px; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase; }
+  .hero .band .flags { margin-left: auto; }
+  .hero .art { flex: 0 0 auto; height: 92px; border-bottom: 1px solid rgba(23,19,11,.45); overflow: hidden; }
+  .hero .art svg { display: block; width: 100%; height: 100%; }
+  .hero .txt { padding: 5px 11px 6px 11px; }
   .card.hero h2 {
     font-family: "Noto Serif", "DejaVu Serif", Georgia, serif;
-    font-size: 19px; line-height: 1.12; font-weight: 900; margin: 5px 0 4px 0;
+    font-size: 18.5px; line-height: 1.12; font-weight: 900; margin-bottom: 3px;
   }
-  .card.hero p { font-size: 12px; line-height: 1.3; color: #35301f; }
+  .card.hero p { font-size: 11.5px; line-height: 1.29; color: #38331f; }
 
   /* ---------- story cards ---------- */
-  .cards { display: grid; gap: 8px 10px; margin-top: 9px; position: relative; z-index: 1; }
+  .cards { display: grid; gap: 8px 10px; margin-top: 8px; position: relative; z-index: 1; }
   .cards.r5 { grid-template-columns: repeat(5, 1fr); }
   .cards.r4 { grid-template-columns: repeat(4, 1fr); }
   .card.story {
-    height: 112px; border-top: 2.6px solid #16130c; background: rgba(255,253,246,.65);
-    padding: 6px 8px 4px 8px; overflow: hidden;
+    height: 124px; border: 1.2px solid #17130b; background: #fffdf4;
+    padding: 5px 8px 4px 8px; overflow: hidden;
   }
+  .chead { display: flex; align-items: center; gap: 5px; }
+  .nchip {
+    flex: 0 0 auto; min-width: 16px; height: 16px; line-height: 16px;
+    background: #17130b; color: #fff; font-size: 10px; font-weight: 800;
+    text-align: center; border-radius: 2px; padding: 0 2px;
+  }
+  .chead .tag { font-size: 8.8px; font-weight: 800; letter-spacing: 1.1px; color: #6d241f; text-transform: uppercase; }
+  .chead .flags { margin-left: auto; }
+  .chead .flag { width: 21px; height: 14px; }
   .card.story h3 {
     font-family: "Noto Serif", "DejaVu Serif", Georgia, serif;
-    font-size: 14px; line-height: 1.16; font-weight: 800; margin: 4px 0 3px 0;
+    font-size: 13.5px; line-height: 1.15; font-weight: 800; margin: 3.5px 0 2.5px 0;
   }
-  .card.story p { font-size: 11px; line-height: 1.28; color: #3c3728; }
+  .card.story p { font-size: 10.8px; line-height: 1.27; color: #3e392a; }
 
-  /* ---------- map strip ---------- */
-  .mapstrip { margin-top: 10px; border-top: 2.6px solid #16130c; padding-top: 5px; position: relative; z-index: 1; }
-  .mapstrip .lbl { display: flex; justify-content: space-between; align-items: baseline; }
-  .mapstrip .lbl .t { font-size: 12.5px; font-weight: 800; letter-spacing: 2.4px; }
-  .mapstrip .lbl .n { font-size: 10.5px; color: #6a6350; letter-spacing: 1px; }
-  .mapstrip svg { display: block; margin: 1px auto 0 auto; }
-
-  /* ---------- also on tuesday ---------- */
+  /* ---------- in brief ---------- */
   .also {
-    margin-top: 8px; border: 1.6px solid #16130c; background: #16130c; color: #f3ecd9;
-    height: 106px; overflow: hidden; display: flex; position: relative; z-index: 1;
+    margin-top: 8px; border: 1.6px solid #17130b; background: #fffdf4;
+    height: 130px; flex: 0 0 auto; overflow: hidden; position: relative; z-index: 1;
+    padding: 5px 12px 5px 12px;
   }
-  .also .lbl {
-    flex: 0 0 104px; background: #b3202a; color: #fff;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    font-family: "Noto Serif", Georgia, serif; font-weight: 900; text-align: center;
-    font-size: 16.5px; line-height: 1.15; letter-spacing: 1px; padding: 4px;
+  .also .ahead {
+    display: flex; align-items: baseline; justify-content: space-between;
+    border-bottom: 2px solid #b3202a; padding-bottom: 3px;
   }
+  .also .ahead .t {
+    font-family: "Noto Serif", Georgia, serif; font-weight: 900;
+    font-size: 15px; letter-spacing: 2.2px;
+  }
+  .also .ahead .n { font-size: 9.5px; font-weight: 700; letter-spacing: 1.6px; color: #6a6350; }
   .also .grid {
-    flex: 1; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px 14px;
-    padding: 6px 12px; align-content: center;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3.5px 16px;
+    padding-top: 5px;
   }
-  .also .it { font-size: 11px; line-height: 1.24; }
-  .also .it b { color: #ffb3ab; font-weight: 800; }
+  .also .it { font-size: 10.6px; line-height: 1.22; color: #33301f; }
+  .also .it b { font-weight: 800; color: #17130b; }
 
   /* ---------- footer ---------- */
   footer {
-    margin-top: 8px; position: relative; z-index: 1;
-    border-top: 1px solid #16130c; padding-top: 4px;
+    margin-top: auto; position: relative; z-index: 1;
+    border-top: 1px solid #17130b; padding-top: 4px;
     font-size: 10px; color: #6a6350; text-align: center; letter-spacing: .4px;
   }
 </style>
 </head>
 <body>
 
+<!-- ======== flag symbols (simplified, drawn in-session) ======== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <path id="star" d="M0,-1 L0.2245,-0.309 L0.9511,-0.309 L0.3633,0.118 L0.5878,0.809 L0,0.382 L-0.5878,0.809 L-0.3633,0.118 L-0.9511,-0.309 L-0.2245,-0.309 Z"/>
+    <symbol id="f-ua" viewBox="0 0 30 20">
+      <rect width="30" height="10" fill="#005BBB"/><rect y="10" width="30" height="10" fill="#FFD500"/>
+    </symbol>
+    <symbol id="f-ru" viewBox="0 0 30 20">
+      <rect width="30" height="6.7" fill="#fff"/><rect y="6.7" width="30" height="6.6" fill="#0039A6"/><rect y="13.3" width="30" height="6.7" fill="#D52B1E"/>
+    </symbol>
+    <symbol id="f-ir" viewBox="0 0 30 20">
+      <rect width="30" height="6.7" fill="#239F40"/><rect y="6.7" width="30" height="6.6" fill="#fff"/><rect y="13.3" width="30" height="6.7" fill="#DA0000"/>
+      <circle cx="15" cy="10" r="1.7" fill="#DA0000"/>
+    </symbol>
+    <symbol id="f-bh" viewBox="0 0 30 20">
+      <rect width="30" height="20" fill="#fff"/>
+      <path d="M11.5 0 H30 V20 H11.5 L15 18 L11.5 16 L15 14 L11.5 12 L15 10 L11.5 8 L15 6 L11.5 4 L15 2 Z" fill="#CE1126"/>
+    </symbol>
+    <symbol id="f-us" viewBox="0 0 30 20">
+      <rect width="30" height="20" fill="#fff"/>
+      <rect y="0" width="30" height="2.86" fill="#B22234"/><rect y="5.71" width="30" height="2.86" fill="#B22234"/>
+      <rect y="11.43" width="30" height="2.86" fill="#B22234"/><rect y="17.14" width="30" height="2.86" fill="#B22234"/>
+      <rect width="14" height="10.8" fill="#3C3B6E"/>
+      <g fill="#fff">
+        <circle cx="2.4" cy="2.7" r="0.85"/><circle cx="5.6" cy="2.7" r="0.85"/><circle cx="8.8" cy="2.7" r="0.85"/><circle cx="12" cy="2.7" r="0.85"/>
+        <circle cx="2.4" cy="5.4" r="0.85"/><circle cx="5.6" cy="5.4" r="0.85"/><circle cx="8.8" cy="5.4" r="0.85"/><circle cx="12" cy="5.4" r="0.85"/>
+        <circle cx="2.4" cy="8.1" r="0.85"/><circle cx="5.6" cy="8.1" r="0.85"/><circle cx="8.8" cy="8.1" r="0.85"/><circle cx="12" cy="8.1" r="0.85"/>
+      </g>
+    </symbol>
+    <symbol id="f-jp" viewBox="0 0 30 20">
+      <rect width="30" height="20" fill="#fff"/><circle cx="15" cy="10" r="4.3" fill="#BC002D"/>
+    </symbol>
+    <symbol id="f-in" viewBox="0 0 30 20">
+      <rect width="30" height="6.7" fill="#FF9933"/><rect y="6.7" width="30" height="6.6" fill="#fff"/><rect y="13.3" width="30" height="6.7" fill="#138808"/>
+      <circle cx="15" cy="10" r="2.2" fill="none" stroke="#000080" stroke-width="0.9"/><circle cx="15" cy="10" r="0.7" fill="#000080"/>
+    </symbol>
+    <symbol id="f-au" viewBox="0 0 30 20">
+      <rect width="30" height="20" fill="#00247D"/>
+      <path d="M0 0 L15 10 M15 0 L0 10" stroke="#fff" stroke-width="2.6"/>
+      <path d="M0 0 L15 10 M15 0 L0 10" stroke="#C8102E" stroke-width="1.1"/>
+      <rect x="6" width="3" height="10" fill="#fff"/><rect y="3.5" width="15" height="3" fill="#fff"/>
+      <rect x="6.7" width="1.6" height="10" fill="#C8102E"/><rect y="4.2" width="15" height="1.6" fill="#C8102E"/>
+      <use href="#star" transform="translate(7.5 15.5) scale(2.1)" fill="#fff"/>
+      <g fill="#fff"><circle cx="24" cy="4.5" r="0.85"/><circle cx="26.5" cy="9" r="0.85"/><circle cx="24.8" cy="14.5" r="0.85"/><circle cx="21.8" cy="10.5" r="0.85"/><circle cx="23.2" cy="7.6" r="0.6"/></g>
+    </symbol>
+    <symbol id="f-ph" viewBox="0 0 30 20">
+      <rect width="30" height="10" fill="#0038A8"/><rect y="10" width="30" height="10" fill="#CE1126"/>
+      <polygon points="0,0 12.5,10 0,20" fill="#fff"/><circle cx="4.6" cy="10" r="1.7" fill="#FCD116"/>
+    </symbol>
+    <symbol id="f-cn" viewBox="0 0 30 20">
+      <rect width="30" height="20" fill="#DE2910"/>
+      <use href="#star" transform="translate(6 5.5) scale(3.1)" fill="#FFDE00"/>
+      <use href="#star" transform="translate(11.5 3) scale(1.15)" fill="#FFDE00"/>
+      <use href="#star" transform="translate(13 6) scale(1.15)" fill="#FFDE00"/>
+      <use href="#star" transform="translate(13 9.5) scale(1.15)" fill="#FFDE00"/>
+      <use href="#star" transform="translate(11.5 12.5) scale(1.15)" fill="#FFDE00"/>
+    </symbol>
+    <symbol id="f-ca" viewBox="0 0 30 20">
+      <rect width="30" height="20" fill="#fff"/>
+      <rect width="6.5" height="20" fill="#FF0000"/><rect x="23.5" width="6.5" height="20" fill="#FF0000"/>
+      <path d="M15 3.2 L16.3 6.6 L19.8 5 L18.6 8.4 L21.8 8.2 L19.2 11 L21.6 12.6 L17.2 13.6 L17.2 16.8 L12.8 16.8 L12.8 13.6 L8.4 12.6 L10.8 11 L8.2 8.2 L11.4 8.4 L10.2 5 L13.7 6.6 Z" fill="#FF0000"/>
+    </symbol>
+    <symbol id="f-tr" viewBox="0 0 30 20">
+      <rect width="30" height="20" fill="#E30A17"/>
+      <circle cx="11.5" cy="10" r="5.2" fill="#fff"/><circle cx="13.1" cy="10" r="4.2" fill="#E30A17"/>
+      <use href="#star" transform="translate(19.8 10) scale(2.3)" fill="#fff"/>
+    </symbol>
+    <symbol id="f-ye" viewBox="0 0 30 20">
+      <rect width="30" height="6.7" fill="#CE1126"/><rect y="6.7" width="30" height="6.6" fill="#fff"/><rect y="13.3" width="30" height="6.7" fill="#000"/>
+      <use href="#star" transform="translate(15 10) scale(2)" fill="#007A3D"/>
+    </symbol>
+    <symbol id="f-sa" viewBox="0 0 30 20">
+      <rect width="30" height="20" fill="#165D31"/>
+      <g fill="#fff">
+        <rect x="9.6" y="10.8" width="10.8" height="1.1"/>
+        <rect x="10.6" y="6.8" width="1.3" height="4"/><rect x="13.4" y="6" width="1.3" height="4.8"/>
+        <rect x="16.2" y="6.8" width="1.3" height="4"/><rect x="19" y="7.4" width="1.3" height="3.4"/>
+      </g>
+      <rect x="6" y="14.6" width="18" height="1.2" fill="#fff"/>
+      <polygon points="24,14.6 26.4,15.2 24,15.8" fill="#fff"/>
+    </symbol>
+    <symbol id="f-ee" viewBox="0 0 30 20">
+      <rect width="30" height="6.7" fill="#0072CE"/><rect y="6.7" width="30" height="6.6" fill="#000"/><rect y="13.3" width="30" height="6.7" fill="#fff"/>
+    </symbol>
+    <symbol id="f-rs" viewBox="0 0 30 20">
+      <rect width="30" height="6.7" fill="#C6363C"/><rect y="6.7" width="30" height="6.6" fill="#0C4076"/><rect y="13.3" width="30" height="6.7" fill="#fff"/>
+    </symbol>
+    <symbol id="f-mn" viewBox="0 0 30 20">
+      <rect width="10" height="20" fill="#DA2032"/><rect x="10" width="10" height="20" fill="#0066B3"/><rect x="20" width="10" height="20" fill="#DA2032"/>
+      <g fill="#F9CF02">
+        <rect x="3.4" y="3" width="3.2" height="1.5"/><circle cx="5" cy="6.6" r="1.15"/>
+        <rect x="3.7" y="8.6" width="2.6" height="3.6"/><rect x="3.4" y="13" width="3.2" height="1.3"/>
+      </g>
+    </symbol>
+    <symbol id="f-mx" viewBox="0 0 30 20">
+      <rect width="10" height="20" fill="#006847"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#CE1126"/>
+      <circle cx="15" cy="10" r="1.9" fill="#006847" stroke="#8A3324" stroke-width="0.7"/>
+    </symbol>
+    <symbol id="f-bo" viewBox="0 0 30 20">
+      <rect width="30" height="6.7" fill="#D52B1E"/><rect y="6.7" width="30" height="6.6" fill="#F9E814"/><rect y="13.3" width="30" height="6.7" fill="#007A3D"/>
+    </symbol>
+    <symbol id="f-cd" viewBox="0 0 30 20">
+      <rect width="30" height="20" fill="#0095D9"/>
+      <polygon points="0,20 9,20 30,0 21,0" fill="#F7D618"/>
+      <polygon points="2.2,20 9.7,20 27.8,0 20.3,0" fill="#CE1021"/>
+      <use href="#star" transform="translate(5.6 5.2) scale(2.3)" fill="#F7D618"/>
+    </symbol>
+    <symbol id="f-cz" viewBox="0 0 30 20">
+      <rect width="30" height="10" fill="#fff"/><rect y="10" width="30" height="10" fill="#D7141A"/>
+      <polygon points="0,0 13,10 0,20" fill="#11457E"/>
+    </symbol>
+    <symbol id="f-ps" viewBox="0 0 30 20">
+      <rect width="30" height="6.7" fill="#000"/><rect y="6.7" width="30" height="6.6" fill="#fff"/><rect y="13.3" width="30" height="6.7" fill="#007A3D"/>
+      <polygon points="0,0 11,10 0,20" fill="#EE1C25"/>
+    </symbol>
+    <symbol id="f-bd" viewBox="0 0 30 20">
+      <rect width="30" height="20" fill="#006A4E"/><circle cx="13.5" cy="10" r="5.4" fill="#F42A41"/>
+    </symbol>
+    <symbol id="f-mz" viewBox="0 0 30 20">
+      <rect width="30" height="5.8" fill="#009A44"/><rect y="5.8" width="30" height="1.2" fill="#fff"/>
+      <rect y="7" width="30" height="6" fill="#000"/><rect y="13" width="30" height="1.2" fill="#fff"/>
+      <rect y="14.2" width="30" height="5.8" fill="#FFEC00"/>
+      <polygon points="0,0 12,10 0,20" fill="#EF3340"/>
+      <use href="#star" transform="translate(4.4 10) scale(1.7)" fill="#FFEC00"/>
+    </symbol>
+    <symbol id="f-iq" viewBox="0 0 30 20">
+      <rect width="30" height="6.7" fill="#CE1126"/><rect y="6.7" width="30" height="6.6" fill="#fff"/><rect y="13.3" width="30" height="6.7" fill="#000"/>
+      <g fill="#007A3D"><rect x="12.4" y="8.4" width="1" height="3.2"/><rect x="14.5" y="8.4" width="1" height="3.2"/><rect x="16.6" y="8.4" width="1" height="3.2"/></g>
+    </symbol>
+    <symbol id="f-fr" viewBox="0 0 30 20">
+      <rect width="10" height="20" fill="#0055A4"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#EF4135"/>
+    </symbol>
+    <symbol id="f-gb" viewBox="0 0 30 20">
+      <rect width="30" height="20" fill="#012169"/>
+      <path d="M0 0 L30 20 M30 0 L0 20" stroke="#fff" stroke-width="4.4"/>
+      <path d="M0 0 L30 20 M30 0 L0 20" stroke="#C8102E" stroke-width="1.7"/>
+      <rect x="12.3" width="5.4" height="20" fill="#fff"/><rect y="7.3" width="30" height="5.4" fill="#fff"/>
+      <rect x="13.6" width="2.8" height="20" fill="#C8102E"/><rect y="8.6" width="30" height="2.8" fill="#C8102E"/>
+    </symbol>
+    <symbol id="f-sg" viewBox="0 0 30 20">
+      <rect width="30" height="10" fill="#EF3340"/><rect y="10" width="30" height="10" fill="#fff"/>
+      <circle cx="6.8" cy="5" r="3.1" fill="#fff"/><circle cx="8.2" cy="5" r="2.5" fill="#EF3340"/>
+      <g fill="#fff"><circle cx="12.6" cy="3.4" r="0.62"/><circle cx="14.6" cy="5" r="0.62"/><circle cx="12.6" cy="6.6" r="0.62"/></g>
+    </symbol>
+  </defs>
+</svg>
+
   <header>
-    <div class="mast-top">
-      <span class="side">VOL. I &middot; No. 17</span>
-      <span class="brand">THE WORLD&rsquo;S NEWS IN ONE PICTURE</span>
-      <span class="side">ONE DAY &middot; ONE IMAGE</span>
+    <div class="rule-top"></div>
+    <div class="furniture">
+      <span>VOL. I &middot; No. 17</span>
+      <span>PRICE: ONE GLANCE</span>
     </div>
-    <h1 class="dateline"><span class="dow">Tuesday</span> 17 November 2026</h1>
-    <div class="mast-sub">25 STORIES &middot; SIX CONTINENTS &middot; EVERY ONE FROM A SINGLE DAY</div>
-    <div class="rule-double"></div>
+    <div class="nameplate">THE WORLD ON ONE PAGE</div>
+    <div class="rule-red"></div>
+    <div class="tagline">EVERY STORY THAT MATTERED</div>
+    <div class="dateline">
+      <span class="ln"></span>
+      <span class="dt"><span class="dow">Tuesday</span> 17 November 2026</span>
+      <span class="ln"></span>
+    </div>
   </header>
+
+  <!-- ================= THE DAY IN NUMBERS ================= -->
+  <div class="numbers">
+    <div class="nlab">THE DAY<br>IN NUMBERS</div>
+    <div class="stat">
+      <span class="big">$115.8bn</span>
+      <span class="cap">NVIDIA QUARTERLY SALES &mdash; DOUBLED IN A YEAR</span>
+    </div>
+    <div class="stat">
+      <span class="big">11,200</span>
+      <span class="cap">EBOLA CASES IN CONGO &mdash; STILL OUT OF CONTROL</span>
+    </div>
+    <div class="stat">
+      <span class="big">5,400</span>
+      <span class="cap">U.S. MEASLES CASES IN 2026 &mdash; MOST SINCE 1991</span>
+    </div>
+  </div>
 
   <!-- ================= HEROES ================= -->
   <div class="heroes">
     <section class="card hero">
+      <div class="band">
+        <span class="hn">1</span><span class="tag">Europe &middot; Ukraine War</span>
+        <span class="flags">
+          <svg class="flag" viewBox="0 0 30 20"><use href="#f-ua"/></svg>
+          <svg class="flag" viewBox="0 0 30 20"><use href="#f-ru"/></svg>
+        </span>
+      </div>
       <div class="art">
-        <svg viewBox="0 0 300 106" preserveAspectRatio="none">
-          <rect x="0" y="0" width="300" height="106" fill="#efe3c2"/>
-          <rect x="0" y="80" width="300" height="26" fill="#c9d4cf"/>
-          <path d="M0 84 q14 -5 28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0" stroke="#7d8b84" stroke-width="1.6" fill="none"/>
-          <path d="M0 94 q14 -5 28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0" stroke="#97a69e" stroke-width="1.3" fill="none"/>
-          <line x1="18" y1="34" x2="18" y2="82" stroke="#16130c" stroke-width="3.4"/>
-          <line x1="282" y1="34" x2="282" y2="82" stroke="#16130c" stroke-width="3.4"/>
-          <path d="M18 36 Q95 6 168 32" stroke="#16130c" stroke-width="1.6" fill="none"/>
-          <path d="M282 36 Q205 6 150 30" stroke="#16130c" stroke-width="1.6" fill="none"/>
-          <line x1="60" y1="27" x2="60" y2="38" stroke="#16130c" stroke-width="1.2"/>
-          <line x1="105" y1="20" x2="105" y2="36" stroke="#16130c" stroke-width="1.2"/>
-          <line x1="240" y1="27" x2="240" y2="38" stroke="#16130c" stroke-width="1.2"/>
-          <line x1="195" y1="20" x2="195" y2="34" stroke="#16130c" stroke-width="1.2"/>
-          <rect x="8" y="36" width="128" height="6.5" fill="#16130c"/>
-          <rect x="136" y="40" width="42" height="6" fill="#16130c" transform="rotate(13 136 40)"/>
-          <rect x="178" y="36" width="112" height="6.5" fill="#16130c"/>
-          <polygon points="150,8 158,26 176,20 164,34 182,40 160,44 162,62 150,48 138,62 140,44 118,40 136,34 124,20 142,26" fill="#b3202a"/>
-          <polygon points="150,20 155,32 167,30 158,39 166,47 153,45 150,55 147,45 134,47 142,39 133,30 145,32" fill="#e07b2a"/>
-          <circle cx="150" cy="38" r="5" fill="#f6efdd"/>
-          <path d="M96 78 l10 -8 M210 76 l9 -7 M60 76 l8 -6" stroke="#16130c" stroke-width="1.4"/>
+        <svg viewBox="0 0 300 92" preserveAspectRatio="none">
+          <rect x="0" y="0" width="300" height="92" fill="#eadfc6"/>
+          <circle cx="262" cy="14" r="7" fill="#e8c96a"/>
+          <rect x="0" y="66" width="300" height="26" fill="#bccbc2"/>
+          <path d="M0 72 q15 -5 30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0" stroke="#7d8b84" stroke-width="1.6" fill="none"/>
+          <path d="M0 82 q15 -5 30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0" stroke="#97a69e" stroke-width="1.3" fill="none"/>
+          <rect x="46" y="16" width="7" height="52" fill="#17130b"/>
+          <rect x="247" y="16" width="7" height="52" fill="#17130b"/>
+          <line x1="49" y1="18" x2="10" y2="44" stroke="#17130b" stroke-width="1.2"/>
+          <line x1="49" y1="18" x2="96" y2="44" stroke="#17130b" stroke-width="1.2"/>
+          <line x1="250" y1="18" x2="204" y2="44" stroke="#17130b" stroke-width="1.2"/>
+          <line x1="250" y1="18" x2="290" y2="44" stroke="#17130b" stroke-width="1.2"/>
+          <rect x="6" y="42" width="118" height="6.5" fill="#17130b"/>
+          <rect x="176" y="42" width="118" height="6.5" fill="#17130b"/>
+          <rect x="122" y="45" width="54" height="6" fill="#17130b" transform="rotate(21 122 45)"/>
+          <path d="M172 66 l4 -7 M182 68 l5 -6 M162 68 l3 -6" stroke="#17130b" stroke-width="1.4"/>
+          <polygon points="150,10 157,25 173,19 162,31 179,36 159,39 161,54 150,42 139,54 141,39 121,36 138,31 127,19 143,25" fill="#b3202a"/>
+          <polygon points="150,21 154,30 164,28 157,35 164,42 153,40 150,48 147,40 136,42 143,35 136,28 146,30" fill="#e07b2a"/>
+          <circle cx="150" cy="34" r="4.4" fill="#f4ecd7"/>
+          <polygon points="18,78 58,78 50,70 26,70" fill="#17130b"/>
+          <rect x="36" y="63" width="3.4" height="7" fill="#17130b"/>
+          <rect x="33" y="59" width="10" height="4.4" fill="#17130b"/>
         </svg>
       </div>
-      <div class="tagrow"><span class="num">1</span><span class="tag">Europe &middot; Ukraine War</span></div>
-      <h2>Ukraine badly damages the Kerch Bridge to Crimea</h2>
-      <p>Kyiv hails an &ldquo;unprecedented operation&rdquo; after a second day of strikes on the bridge. Russia answers by hitting bridges in Kyiv.</p>
+      <div class="txt">
+        <h2>Ukraine badly damages the Kerch Bridge to Crimea</h2>
+        <p>Kyiv hails an &ldquo;unprecedented operation&rdquo; after a second day of strikes on the bridge. Russia answers by hitting bridges in Kyiv.</p>
+      </div>
     </section>
 
     <section class="card hero">
+      <div class="band">
+        <span class="hn">2</span><span class="tag">Middle East &middot; Conflict</span>
+        <span class="flags">
+          <svg class="flag" viewBox="0 0 30 20"><use href="#f-ir"/></svg>
+          <svg class="flag" viewBox="0 0 30 20"><use href="#f-bh"/></svg>
+        </span>
+      </div>
       <div class="art">
-        <svg viewBox="0 0 300 106" preserveAspectRatio="none">
-          <rect x="0" y="0" width="300" height="106" fill="#dfe4da"/>
-          <path d="M0 0 H300 V30 L262 40 L238 34 L214 44 L186 40 L168 26 L140 30 L118 18 L88 24 L60 14 L30 20 L0 12 Z" fill="#e7dcbb"/>
-          <path d="M0 106 V58 L34 52 L58 62 L84 56 L104 68 L128 78 L150 106 Z" fill="#e7dcbb"/>
-          <path d="M300 106 V64 L272 56 L252 66 L238 84 L232 106 Z" fill="#e7dcbb"/>
-          <path d="M150 106 L128 78 L150 66 L196 62 L232 84 L238 106 Z" fill="#e7dcbb"/>
-          <text x="52" y="30" font-family="Noto Serif, serif" font-size="10.5" font-weight="700" fill="#6a6350" letter-spacing="1.5">IRAN</text>
-          <text x="196" y="98" font-family="Noto Serif, serif" font-size="10.5" font-weight="700" fill="#6a6350" letter-spacing="1.5">SAUDI ARABIA</text>
-          <text x="110" y="60" font-family="Noto Serif, serif" font-size="9" font-style="italic" fill="#7d8b84">Persian Gulf</text>
-          <circle cx="196" cy="60" r="3.4" fill="#b3202a"/>
-          <circle cx="196" cy="60" r="8" fill="none" stroke="#b3202a" stroke-width="1.3"/>
-          <circle cx="196" cy="60" r="14.5" fill="none" stroke="#b3202a" stroke-width="1" opacity=".55"/>
-          <text x="206" y="57" font-family="Noto Sans, sans-serif" font-size="9.5" font-weight="800" fill="#b3202a">BAHRAIN</text>
-          <text x="206" y="68" font-family="Noto Sans, sans-serif" font-size="8" fill="#4c4636">U.S. radar base</text>
-          <path d="M96 26 Q150 26 186 50" stroke="#b3202a" stroke-width="1.6" stroke-dasharray="4 3.4" fill="none"/>
-          <g transform="translate(104 22) rotate(24)">
-            <rect x="-7" y="-2.4" width="14" height="4.8" rx="2.2" fill="#16130c"/>
-            <circle cx="-6" cy="-5" r="2.6" fill="none" stroke="#16130c" stroke-width="1.3"/>
-            <circle cx="6" cy="-5" r="2.6" fill="none" stroke="#16130c" stroke-width="1.3"/>
-            <circle cx="-6" cy="5" r="2.6" fill="none" stroke="#16130c" stroke-width="1.3"/>
-            <circle cx="6" cy="5" r="2.6" fill="none" stroke="#16130c" stroke-width="1.3"/>
+        <svg viewBox="0 0 300 92" preserveAspectRatio="none">
+          <rect x="0" y="0" width="300" height="92" fill="#dde3d6"/>
+          <path d="M0 0 H300 V16 L236 22 L196 14 L150 20 L96 12 L44 18 L0 10 Z" fill="#e7dcbb"/>
+          <path d="M0 92 V54 L44 48 L76 58 L104 66 L126 92 Z" fill="#e7dcbb"/>
+          <path d="M300 92 V58 L262 52 L240 64 L228 92 Z" fill="#e7dcbb"/>
+          <path d="M126 92 L104 66 L150 58 L204 60 L228 92 Z" fill="#e7dcbb"/>
+          <path d="M196 22 L208 30 L204 42 L190 40 L186 28 Z" fill="#e7dcbb"/>
+          <text x="30" y="13" font-family="Noto Serif, serif" font-size="10" font-weight="700" fill="#6a6350" letter-spacing="1.5">IRAN</text>
+          <text x="168" y="86" font-family="Noto Serif, serif" font-size="10" font-weight="700" fill="#6a6350" letter-spacing="1.5">SAUDI ARABIA</text>
+          <text x="96" y="46" font-family="Noto Serif, serif" font-size="8.6" font-style="italic" fill="#7d8b84">Persian Gulf</text>
+          <circle cx="222" cy="38" r="3.2" fill="#b3202a"/>
+          <circle cx="222" cy="38" r="7.6" fill="none" stroke="#b3202a" stroke-width="1.3"/>
+          <circle cx="222" cy="38" r="13.6" fill="none" stroke="#b3202a" stroke-width="1" opacity=".55"/>
+          <text x="240" y="35" font-family="Noto Sans, sans-serif" font-size="9.3" font-weight="800" fill="#b3202a">BAHRAIN</text>
+          <text x="240" y="46" font-family="Noto Sans, sans-serif" font-size="7.8" fill="#4c4636">U.S. radar base</text>
+          <path d="M84 14 Q156 10 210 30" stroke="#b3202a" stroke-width="1.6" stroke-dasharray="4 3.4" fill="none"/>
+          <g transform="translate(96 12) rotate(18)">
+            <rect x="-7" y="-2.4" width="14" height="4.8" rx="2.2" fill="#17130b"/>
+            <circle cx="-6" cy="-5" r="2.6" fill="none" stroke="#17130b" stroke-width="1.3"/>
+            <circle cx="6" cy="-5" r="2.6" fill="none" stroke="#17130b" stroke-width="1.3"/>
+            <circle cx="-6" cy="5" r="2.6" fill="none" stroke="#17130b" stroke-width="1.3"/>
+            <circle cx="6" cy="5" r="2.6" fill="none" stroke="#17130b" stroke-width="1.3"/>
           </g>
-          <g transform="translate(140 30) rotate(24) scale(.78)">
-            <rect x="-7" y="-2.4" width="14" height="4.8" rx="2.2" fill="#16130c"/>
-            <circle cx="-6" cy="-5" r="2.6" fill="none" stroke="#16130c" stroke-width="1.3"/>
-            <circle cx="6" cy="-5" r="2.6" fill="none" stroke="#16130c" stroke-width="1.3"/>
-            <circle cx="-6" cy="5" r="2.6" fill="none" stroke="#16130c" stroke-width="1.3"/>
-            <circle cx="6" cy="5" r="2.6" fill="none" stroke="#16130c" stroke-width="1.3"/>
+          <g transform="translate(146 15) rotate(18) scale(.76)">
+            <rect x="-7" y="-2.4" width="14" height="4.8" rx="2.2" fill="#17130b"/>
+            <circle cx="-6" cy="-5" r="2.6" fill="none" stroke="#17130b" stroke-width="1.3"/>
+            <circle cx="6" cy="-5" r="2.6" fill="none" stroke="#17130b" stroke-width="1.3"/>
+            <circle cx="-6" cy="5" r="2.6" fill="none" stroke="#17130b" stroke-width="1.3"/>
+            <circle cx="6" cy="5" r="2.6" fill="none" stroke="#17130b" stroke-width="1.3"/>
           </g>
         </svg>
       </div>
-      <div class="tagrow"><span class="num">2</span><span class="tag">Middle East &middot; Conflict</span></div>
-      <h2>Iran fires drones at a U.S. radar base in Bahrain</h2>
-      <p>Tehran&rsquo;s third strike on American targets in the kingdom in days. Bahrain says the attack was intercepted, with no casualties or damage.</p>
+      <div class="txt">
+        <h2>Iran fires drones at a U.S. radar base in Bahrain</h2>
+        <p>Tehran&rsquo;s third strike on American targets in the kingdom in days. Bahrain says the attack was intercepted, with no casualties or damage.</p>
+      </div>
     </section>
 
     <section class="card hero">
+      <div class="band">
+        <span class="hn">3</span><span class="tag">Asia &middot; Diplomacy</span>
+        <span class="flags">
+          <svg class="flag" viewBox="0 0 30 20"><use href="#f-us"/></svg>
+          <svg class="flag" viewBox="0 0 30 20"><use href="#f-jp"/></svg>
+          <svg class="flag" viewBox="0 0 30 20"><use href="#f-in"/></svg>
+          <svg class="flag" viewBox="0 0 30 20"><use href="#f-au"/></svg>
+        </span>
+      </div>
       <div class="art">
-        <svg viewBox="0 0 300 106" preserveAspectRatio="none">
-          <rect x="0" y="0" width="300" height="106" fill="#efe3c2"/>
-          <rect x="34" y="10" width="232" height="19" fill="#16130c"/>
-          <text x="150" y="24" text-anchor="middle" font-family="Noto Serif, serif" font-size="11.5" font-weight="900" fill="#f6efdd" letter-spacing="2.5">QUAD SUMMIT &middot; MANILA</text>
-          <rect x="52" y="66" width="196" height="9" fill="#16130c"/>
-          <rect x="60" y="75" width="7" height="16" fill="#16130c"/>
-          <rect x="233" y="75" width="7" height="16" fill="#16130c"/>
-          <g font-family="Noto Sans, sans-serif" font-size="8.6" font-weight="800" fill="#f6efdd" text-anchor="middle">
-            <circle cx="88" cy="50" r="8.5" fill="#16130c"/>
-            <path d="M76 66 a12 9 0 0 1 24 0 Z" fill="#16130c"/>
-            <rect x="80" y="34" width="16" height="10.5" fill="#b3202a"/>
-            <text x="88" y="42">US</text>
-            <circle cx="129" cy="50" r="8.5" fill="#16130c"/>
-            <path d="M117 66 a12 9 0 0 1 24 0 Z" fill="#16130c"/>
-            <rect x="121" y="34" width="16" height="10.5" fill="#f6efdd" stroke="#16130c" stroke-width="1"/>
-            <circle cx="129" cy="39.2" r="3.1" fill="#b3202a"/>
-            <circle cx="171" cy="50" r="8.5" fill="#16130c"/>
-            <path d="M159 66 a12 9 0 0 1 24 0 Z" fill="#16130c"/>
-            <rect x="163" y="34" width="16" height="10.5" fill="#e07b2a"/>
-            <text x="171" y="42">IN</text>
-            <circle cx="212" cy="50" r="8.5" fill="#16130c"/>
-            <path d="M200 66 a12 9 0 0 1 24 0 Z" fill="#16130c"/>
-            <rect x="204" y="34" width="16" height="10.5" fill="#2e5f8a"/>
-            <text x="212" y="42">AU</text>
+        <svg viewBox="0 0 300 92" preserveAspectRatio="none">
+          <rect x="0" y="0" width="300" height="92" fill="#eee2c4"/>
+          <rect x="30" y="6" width="240" height="17" fill="#17130b"/>
+          <text x="150" y="18.5" text-anchor="middle" font-family="Noto Serif, serif" font-size="11" font-weight="900" fill="#f4ecd7" letter-spacing="2.2">QUAD SUMMIT &middot; MANILA</text>
+          <g font-family="Noto Sans, sans-serif" font-size="9.5" font-weight="800" text-anchor="middle">
+            <circle cx="66" cy="38" r="7.5" fill="#17130b"/>
+            <rect x="57" y="45" width="18" height="11" fill="#17130b"/>
+            <rect x="48" y="56" width="36" height="25" fill="#3C3B6E"/>
+            <text x="66" y="72.5" fill="#fff">US</text>
+            <circle cx="122" cy="38" r="7.5" fill="#17130b"/>
+            <rect x="113" y="45" width="18" height="11" fill="#17130b"/>
+            <rect x="104" y="56" width="36" height="25" fill="#f4ecd7" stroke="#17130b" stroke-width="1.2"/>
+            <circle cx="122" cy="65" r="3.4" fill="#b3202a"/>
+            <text x="122" y="77.5" fill="#17130b">JP</text>
+            <circle cx="178" cy="38" r="7.5" fill="#17130b"/>
+            <rect x="169" y="45" width="18" height="11" fill="#17130b"/>
+            <rect x="160" y="56" width="36" height="25" fill="#e07b2a"/>
+            <text x="178" y="72.5" fill="#fff">IN</text>
+            <circle cx="234" cy="38" r="7.5" fill="#17130b"/>
+            <rect x="225" y="45" width="18" height="11" fill="#17130b"/>
+            <rect x="216" y="56" width="36" height="25" fill="#2e5f8a"/>
+            <text x="234" y="72.5" fill="#fff">AU</text>
           </g>
-          <line x1="88" y1="44.5" x2="88" y2="66" stroke="#16130c" stroke-width="1.1"/>
-          <line x1="129" y1="44.5" x2="129" y2="66" stroke="#16130c" stroke-width="1.1"/>
-          <line x1="171" y1="44.5" x2="171" y2="66" stroke="#16130c" stroke-width="1.1"/>
-          <line x1="212" y1="44.5" x2="212" y2="66" stroke="#16130c" stroke-width="1.1"/>
-          <rect x="0" y="97" width="300" height="9" fill="#b3202a"/>
+          <rect x="0" y="86" width="300" height="6" fill="#b3202a"/>
         </svg>
       </div>
-      <div class="tagrow"><span class="num">3</span><span class="tag">Asia &middot; Diplomacy</span></div>
-      <h2>Quad leaders sign minerals deals in Manila</h2>
-      <p>The U.S., Japan, India and Australia unveil new critical-minerals deals and voice &ldquo;grave concerns&rdquo; over export curbs.</p>
+      <div class="txt">
+        <h2>Quad leaders sign minerals deals in Manila</h2>
+        <p>The U.S., Japan, India and Australia unveil new critical-minerals deals and voice &ldquo;grave concerns&rdquo; over export curbs.</p>
+      </div>
     </section>
   </div>
 
   <!-- ================= CARDS ROW 1 (5) ================= -->
   <div class="cards r5">
     <section class="card story">
-      <div class="tagrow"><span class="num">4</span><span class="tag">Diplomacy</span></div>
+      <div class="chead"><span class="nchip">4</span><span class="tag">Diplomacy</span>
+        <span class="flags"><svg class="flag" viewBox="0 0 30 20"><use href="#f-us"/></svg><svg class="flag" viewBox="0 0 30 20"><use href="#f-cn"/></svg></span></div>
       <h3>Trump flies to Asia for nuclear talks</h3>
       <p>Off to APEC in Shenzhen, before a planned 19 Nov. meeting with Xi Jinping and Putin.</p>
     </section>
     <section class="card story">
-      <div class="tagrow"><span class="num">5</span><span class="tag">Trade</span></div>
+      <div class="chead"><span class="nchip">5</span><span class="tag">Trade</span>
+        <span class="flags"><svg class="flag" viewBox="0 0 30 20"><use href="#f-cn"/></svg><svg class="flag" viewBox="0 0 30 20"><use href="#f-ca"/></svg></span></div>
       <h3>China eases tariffs for Canada</h3>
       <p>Beijing cuts duties on C$400m of Canadian pork and seafood after Xi&ndash;Carney talks.</p>
     </section>
     <section class="card story">
-      <div class="tagrow"><span class="num">6</span><span class="tag">Climate</span></div>
+      <div class="chead"><span class="nchip">6</span><span class="tag">Climate</span>
+        <span class="flags"><svg class="flag" viewBox="0 0 30 20"><use href="#f-tr"/></svg></span></div>
       <h3>COP31 draft splits nations on fossil fuels</h3>
       <p>Ministers take over in Antalya as the draft pits a phase-out against weaker wording.</p>
     </section>
     <section class="card story">
-      <div class="tagrow"><span class="num">7</span><span class="tag">Business</span></div>
+      <div class="chead"><span class="nchip">7</span><span class="tag">Business</span>
+        <span class="flags"><svg class="flag" viewBox="0 0 30 20"><use href="#f-us"/></svg></span></div>
       <h3>Nvidia sales double to $115.8bn</h3>
       <p>Revenue jumps 103% after the close; the chipmaker guides to $130bn next quarter.</p>
     </section>
     <section class="card story">
-      <div class="tagrow"><span class="num">8</span><span class="tag">Energy</span></div>
+      <div class="chead"><span class="nchip">8</span><span class="tag">Energy</span>
+        <span class="flags"><svg class="flag" viewBox="0 0 30 20"><use href="#f-ye"/></svg><svg class="flag" viewBox="0 0 30 20"><use href="#f-sa"/></svg></span></div>
       <h3>Houthis strike a Saudi oil pipeline</h3>
       <p>Drones hit the East&ndash;West pipeline as Houthi forces push toward Aden.</p>
     </section>
@@ -267,22 +512,26 @@
   <!-- ================= CARDS ROW 2 (4) ================= -->
   <div class="cards r4">
     <section class="card story">
-      <div class="tagrow"><span class="num">9</span><span class="tag">Asia-Pacific</span></div>
+      <div class="chead"><span class="nchip">9</span><span class="tag">Asia-Pacific</span>
+        <span class="flags"><svg class="flag" viewBox="0 0 30 20"><use href="#f-jp"/></svg><svg class="flag" viewBox="0 0 30 20"><use href="#f-ru"/></svg></span></div>
       <h3>Japan scrambles jets over Russian airspace violation</h3>
       <p>Tokyo launches fighter jets and protests strongly after two suspected Russian aircraft enter its airspace.</p>
     </section>
     <section class="card story">
-      <div class="tagrow"><span class="num">10</span><span class="tag">Europe</span></div>
+      <div class="chead"><span class="nchip">10</span><span class="tag">Europe</span>
+        <span class="flags"><svg class="flag" viewBox="0 0 30 20"><use href="#f-ee"/></svg><svg class="flag" viewBox="0 0 30 20"><use href="#f-ru"/></svg></span></div>
       <h3>Estonia to close every border crossing with Russia</h3>
       <p>Tallinn blames Moscow for a foiled arson plot, the latest in a string of hybrid incidents on NATO&rsquo;s eastern edge.</p>
     </section>
     <section class="card story">
-      <div class="tagrow"><span class="num">11</span><span class="tag">Europe &middot; Politics</span></div>
+      <div class="chead"><span class="nchip">11</span><span class="tag">Europe &middot; Politics</span>
+        <span class="flags"><svg class="flag" viewBox="0 0 30 20"><use href="#f-rs"/></svg></span></div>
       <h3>Serbia&rsquo;s student MPs take their seats</h3>
       <p>The Student List&rsquo;s 140 deputies enter parliament, ending 14 years of rule by Vucic&rsquo;s SNS party.</p>
     </section>
     <section class="card story">
-      <div class="tagrow"><span class="num">12</span><span class="tag">Asia &middot; Politics</span></div>
+      <div class="chead"><span class="nchip">12</span><span class="tag">Asia &middot; Politics</span>
+        <span class="flags"><svg class="flag" viewBox="0 0 30 20"><use href="#f-mn"/></svg></span></div>
       <h3>Mongolia&rsquo;s president says he will resign</h3>
       <p>Khurelsukh denies a $25m railway bribe claim and says he will quit to clear his name; parliament must accept.</p>
     </section>
@@ -291,85 +540,44 @@
   <!-- ================= CARDS ROW 3 (4) ================= -->
   <div class="cards r4">
     <section class="card story">
-      <div class="tagrow"><span class="num">13</span><span class="tag">Health &middot; Americas</span></div>
+      <div class="chead"><span class="nchip">13</span><span class="tag">Health &middot; Americas</span>
+        <span class="flags"><svg class="flag" viewBox="0 0 30 20"><use href="#f-us"/></svg><svg class="flag" viewBox="0 0 30 20"><use href="#f-mx"/></svg><svg class="flag" viewBox="0 0 30 20"><use href="#f-bo"/></svg></span></div>
       <h3>U.S., Mexico and Bolivia lose measles-free status</h3>
       <p>PAHO says a year of unbroken spread has re-established measles in all three; U.S. cases top 5,400 this year.</p>
     </section>
     <section class="card story">
-      <div class="tagrow"><span class="num">14</span><span class="tag">Health &middot; Africa</span></div>
+      <div class="chead"><span class="nchip">14</span><span class="tag">Health &middot; Africa</span>
+        <span class="flags"><svg class="flag" viewBox="0 0 30 20"><use href="#f-cd"/></svg></span></div>
       <h3>Congo Ebola cases pass 11,200, still out of control</h3>
       <p>Deaths top 5,500 in the Bundibugyo outbreak, with 400&ndash;500 new cases a week, Africa CDC warns.</p>
     </section>
     <section class="card story">
-      <div class="tagrow"><span class="num">15</span><span class="tag">Europe &middot; Transport</span></div>
+      <div class="chead"><span class="nchip">15</span><span class="tag">Europe &middot; Transport</span>
+        <span class="flags"><svg class="flag" viewBox="0 0 30 20"><use href="#f-cz"/></svg></span></div>
       <h3>Two trains collide head-on near Prague station</h3>
       <p>The low-speed crash on a rail bridge injures 46 people, four of them seriously, in the morning rush.</p>
     </section>
     <section class="card story">
-      <div class="tagrow"><span class="num">16</span><span class="tag">Russia</span></div>
+      <div class="chead"><span class="nchip">16</span><span class="tag">Russia</span>
+        <span class="flags"><svg class="flag" viewBox="0 0 30 20"><use href="#f-ru"/></svg></span></div>
       <h3>An-12 crash in Siberia kills all 19 on board</h3>
       <p>The military transport came down near Yagunovo in the Kemerovo region; officials cite a technical fault.</p>
     </section>
   </div>
 
-  <!-- ================= MAP STRIP ================= -->
-  <div class="mapstrip">
-    <div class="lbl"><span class="t">WHERE IT HAPPENED</span><span class="n">NUMBERS MATCH THE STORIES ABOVE</span></div>
-    <svg width="950" height="115" viewBox="0 0 972 118">
-      <g transform="translate(486,60.8) scale(2.7,-0.95)">
-        <g fill="#ddd0ab" stroke="#a4936d" stroke-width="0.55">
-          <polygon points="-165,68 -150,70 -135,69 -120,71 -105,72 -92,78 -85,70 -80,73 -76,68 -70,62 -64,60 -60,54 -64,50 -68,45 -71,42 -74,39 -76,35 -80,31 -81,25 -85,29 -90,29 -94,29 -97,25 -97,20 -92,15 -87,13 -83,9 -78,8 -80,13 -84,16 -88,17 -91,19 -96,17 -101,19 -105,22 -108,24 -112,28 -117,33 -122,37 -124,44 -128,51 -135,57 -152,58 -162,60"/>
-          <polygon points="-45,60 -30,68 -22,70 -20,76 -30,80 -45,78 -55,70 -53,64"/>
-          <polygon points="-78,8 -72,11 -64,10 -55,6 -50,0 -44,-3 -35,-8 -38,-15 -40,-22 -48,-27 -55,-33 -62,-39 -65,-45 -67,-50 -69,-54 -71,-50 -73,-44 -73,-35 -71,-25 -70,-18 -75,-15 -79,-8 -80,-4 -78,2"/>
-          <polygon points="-9,37 -9,43 -2,44 0,46 -5,48 -2,50 2,51 5,53 8,55 8,57 4,58 10,59 12,62 16,65 20,69 25,71 30,70 28,66 24,61 22,58 24,58 28,60 30,62 27,64 22,66 16,68 10,66 6,61 5,58 0,54 -3,53 -5,50 -9,44"/>
-          <polygon points="-5,50 -3,53 -5,55 -8,57 -6,58 -3,57 -2,54 0,52 1,51"/>
-          <polygon points="8,44 12,46 14,45 16,42 18,40 16,38 14,40 10,44"/>
-          <polygon points="14,45 22,45 28,42 26,39 22,38 19,40 16,42"/>
-          <polygon points="-6,35 10,37 20,32 30,31 35,28 38,22 40,20 43,12 48,11 51,12 48,5 44,0 42,-5 40,-12 38,-20 35,-27 32,-30 28,-33 20,-35 17,-32 15,-27 13,-18 12,-10 13,-2 9,4 5,4 -2,5 -8,5 -13,8 -16,12 -17,15 -16,20 -15,25 -13,28 -10,31"/>
-          <polygon points="44,-12 47,-14 50,-18 48,-24 45,-25 44,-20"/>
-          <polygon points="28,42 35,42 40,45 45,48 50,50 55,52 60,55 65,60 70,66 80,70 95,72 110,73 125,72 140,71 155,69 170,66 179,65 179,60 168,60 160,56 162,50 155,47 145,49 141,44 143,39 139,35 136,33 131,31 127,33 123,30 121,26 118,23 113,21 110,20 108,15 107,10 104,6 101,8 99,13 96,16 93,17 91,22 89,22 87,20 84,19 81,16 79,12 77,8 76,12 75,18 72,20 68,23 62,25 58,25 55,24 57,28 54,29 51,28 48,29 44,29 42,31 43,36 39,36 36,38 33,36 30,36 28,39"/>
-          <polygon points="42,31 48,29 55,24 59,22 58,17 55,12 50,13 45,12 42,15 40,20 39,25"/>
-          <polygon points="130,31 133,34 137,35 140,37 141,40 142,44 141,45 139,40 137,37 133,34 130,33"/>
-          <polygon points="95,6 110,3 125,-1 140,-3 150,-4 155,-6 145,-7 130,-6 115,-3 102,1"/>
-          <polygon points="110,2 118,4 122,1 119,-3 112,-2"/>
-          <polygon points="113,-22 115,-30 118,-34 124,-33 129,-32 132,-31 136,-35 140,-38 145,-38 147,-35 150,-33 153,-30 153,-25 151,-20 148,-15 146,-12 142,-11 137,-12 135,-15 132,-11 129,-14 126,-14 122,-17 118,-20"/>
-          <polygon points="167,-45 172,-41 174,-38 170,-40 168,-43"/>
-        </g>
-      </g>
-      <g font-family="Noto Sans, sans-serif" font-size="8" font-weight="800" text-anchor="middle">
-        <g><circle cx="157" cy="25" r="6.4" fill="#b3202a"/><text x="157" y="28" fill="#fff">7</text></g>
-        <g><circle cx="278" cy="24" r="6.4" fill="#b3202a"/><text x="278" y="27" fill="#fff">13</text></g>
-        <g><circle cx="516" cy="13" r="6.4" fill="#b3202a"/><text x="516" y="16" fill="#fff">15</text></g>
-        <g><circle cx="531" cy="22" r="6.4" fill="#16130c"/><text x="531" y="25" fill="#fff">11</text></g>
-        <g><circle cx="553" cy="7" r="6.4" fill="#b3202a"/><text x="553" y="10" fill="#fff">10</text></g>
-        <g><circle cx="574" cy="29" r="6.4" fill="#16130c"/><text x="574" y="32" fill="#fff">6</text></g>
-        <g><circle cx="608" cy="18" r="6.4" fill="#b3202a"/><text x="608" y="21" fill="#fff">1</text></g>
-        <g><circle cx="598" cy="38" r="6.4" fill="#16130c"/><text x="598" y="41" fill="#fff">8</text></g>
-        <g><circle cx="626" cy="36" r="6.4" fill="#b3202a"/><text x="626" y="39" fill="#fff">2</text></g>
-        <g><circle cx="548" cy="63" r="6.4" fill="#b3202a"/><text x="548" y="66" fill="#fff">14</text></g>
-        <g><circle cx="718" cy="9" r="6.4" fill="#b3202a"/><text x="718" y="12" fill="#fff">16</text></g>
-        <g><circle cx="774" cy="15" r="6.4" fill="#16130c"/><text x="774" y="18" fill="#fff">12</text></g>
-        <g><circle cx="800" cy="23" r="6.4" fill="#b3202a"/><text x="800" y="26" fill="#fff">5</text></g>
-        <g><circle cx="794" cy="39" r="6.4" fill="#16130c"/><text x="794" y="42" fill="#fff">4</text></g>
-        <g><circle cx="813" cy="47" r="6.4" fill="#b3202a"/><text x="813" y="50" fill="#fff">3</text></g>
-        <g><circle cx="838" cy="29" r="6.4" fill="#b3202a"/><text x="838" y="32" fill="#fff">9</text></g>
-      </g>
-    </svg>
-  </div>
-
-  <!-- ================= ALSO ON TUESDAY ================= -->
+  <!-- ================= IN BRIEF ================= -->
   <section class="also">
-    <div class="lbl">ALSO ON<br>TUESDAY</div>
+    <div class="ahead"><span class="t">IN BRIEF</span><span class="n">MORE FROM TUESDAY</span></div>
     <div class="grid">
-      <div class="it"><b>GAZA &mdash;</b> The Security Council is warned the ceasefire could collapse without urgent action.</div>
-      <div class="it"><b>DHAKA &mdash;</b> Police fire tear gas as garment workers demanding higher wages block highways.</div>
-      <div class="it"><b>MAPUTO &mdash;</b> Opposition leader Mondlane goes on trial over election unrest; he denies charges.</div>
-      <div class="it"><b>ODISHA &mdash;</b> Evacuations begin in six districts as Cyclone Akvan nears India&rsquo;s east coast.</div>
-      <div class="it"><b>IRAQ &mdash;</b> The army moves into an Iran-backed militia stronghold.</div>
-      <div class="it"><b>PARIS &mdash;</b> G&eacute;rard Depardieu pleads guilty to sexual assault in a Paris court.</div>
-      <div class="it"><b>LONDON &mdash;</b> Britain sanctions eight Israeli firms building West Bank settlements.</div>
-      <div class="it"><b>MANILA &mdash;</b> The ASEAN summit closes in Manila; Singapore chairs in 2027.</div>
-      <div class="it"><b>WASHINGTON &mdash;</b> U.S. measles cases pass 5,400 in 2026, the most since 1991.</div>
+      <div class="it"><svg class="flag" viewBox="0 0 30 20"><use href="#f-ps"/></svg><b>GAZA &mdash;</b> The Security Council is warned the ceasefire could collapse without urgent action.</div>
+      <div class="it"><svg class="flag" viewBox="0 0 30 20"><use href="#f-bd"/></svg><b>DHAKA &mdash;</b> Police fire tear gas as garment workers demanding higher wages block highways.</div>
+      <div class="it"><svg class="flag" viewBox="0 0 30 20"><use href="#f-mz"/></svg><b>MAPUTO &mdash;</b> Opposition leader Mondlane goes on trial over election unrest; he denies charges.</div>
+      <div class="it"><svg class="flag" viewBox="0 0 30 20"><use href="#f-in"/></svg><b>ODISHA &mdash;</b> Evacuations begin in six districts as Cyclone Akvan nears India&rsquo;s east coast.</div>
+      <div class="it"><svg class="flag" viewBox="0 0 30 20"><use href="#f-iq"/></svg><b>IRAQ &mdash;</b> The army moves into an Iran-backed militia stronghold.</div>
+      <div class="it"><svg class="flag" viewBox="0 0 30 20"><use href="#f-fr"/></svg><b>PARIS &mdash;</b> G&eacute;rard Depardieu pleads guilty to sexual assault in a Paris court.</div>
+      <div class="it"><svg class="flag" viewBox="0 0 30 20"><use href="#f-gb"/></svg><b>LONDON &mdash;</b> Britain sanctions eight Israeli firms building West Bank settlements.</div>
+      <div class="it"><svg class="flag" viewBox="0 0 30 20"><use href="#f-ph"/></svg><b>MANILA &mdash;</b> The ASEAN summit closes in Manila; Singapore chairs in 2027.</div>
+      <div class="it"><svg class="flag" viewBox="0 0 30 20"><use href="#f-us"/></svg><b>WASHINGTON &mdash;</b> U.S. measles cases pass 5,400 in 2026, the most since 1991.</div>
     </div>
   </section>
 
