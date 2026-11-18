@@ -8,152 +8,218 @@
   body {
     width: 1024px; height: 1024px;
     font-family: "Noto Sans", "DejaVu Sans", Arial, sans-serif;
-    background: #f4f1ea; color: #14213d;
+    background: #0b1026; color: #14213d;
     overflow: hidden;
+    position: relative;
   }
-  /* ---------- header ---------- */
+  /* faint dot-grid glow behind everything */
+  body::before {
+    content: ""; position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(120,140,255,.14) 1.5px, transparent 1.7px);
+    background-size: 26px 26px;
+  }
+  /* ---------- header / masthead ---------- */
   header {
-    height: 172px; background: #10233f; color: #fff;
-    padding: 26px 34px 0 34px; position: relative;
+    height: 172px; position: relative; z-index: 1;
+    background:
+      radial-gradient(560px 320px at 88% -40%, rgba(255,157,0,.38), rgba(255,157,0,0) 62%),
+      linear-gradient(100deg, #131a4d 0%, #33207a 55%, #5b1e7e 100%);
+    color: #fff; padding: 24px 34px 0 34px; overflow: hidden;
   }
   .kicker {
-    font-size: 17px; letter-spacing: 5px; font-weight: 700;
+    font-size: 15.5px; letter-spacing: 4.5px; font-weight: 800;
     color: #ffb703; text-transform: uppercase;
   }
   h1 {
-    font-size: 64px; line-height: 1.02; font-weight: 800;
-    letter-spacing: -1px; margin-top: 2px;
+    font-size: 68px; line-height: 1.0; font-weight: 800;
+    letter-spacing: -1px; margin-top: 4px;
   }
+  h1 .grad {
+    background: linear-gradient(92deg, #ffd23e 10%, #ff7b00 90%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .sub { margin-top: 9px; font-size: 18.5px; color: #ccd7f2; }
   .date {
-    position: absolute; right: 34px; top: 24px; text-align: right; width: 330px;
+    position: absolute; right: 34px; top: 26px; z-index: 2;
+    background: linear-gradient(160deg, #ffd23e, #ff9d00);
+    color: #221100; border-radius: 16px; text-align: center;
+    padding: 13px 24px 11px 24px;
+    box-shadow: 0 6px 22px rgba(255,157,0,.45);
   }
-  .date .day { font-size: 20px; font-weight: 700; letter-spacing: 3px; color: #ffb703; }
-  .date .dateline { font-size: 44px; font-weight: 800; line-height: 1.05; white-space: nowrap; }
-  .date .yr { font-size: 20px; font-weight: 700; letter-spacing: 2px; color: #c9d6e8; }
-  .sub {
-    margin-top: 8px; font-size: 19px; color: #c9d6e8;
+  .date .day { font-size: 16px; font-weight: 800; letter-spacing: 4px; }
+  .date .dateline { font-size: 41px; font-weight: 800; line-height: 1.04; white-space: nowrap; }
+  .date .yr { font-size: 16.5px; font-weight: 800; letter-spacing: 5px; }
+  .rainbow { height: 8px; position: relative; z-index: 1;
+    background: linear-gradient(90deg, #e5383b 0%, #f2762e 22%, #ffb703 42%, #00a676 62%, #2f80ed 82%, #7b2ff7 100%);
   }
-  .rule { height: 6px; background: #d62828; }
-  /* ---------- story grid ---------- */
+  /* ---------- layout ---------- */
   main {
-    padding: 16px 28px 0 28px;
-    display: grid; grid-template-columns: 1fr 1fr;
-    grid-template-rows: 196px 196px 196px;
-    column-gap: 20px; row-gap: 14px;
+    position: relative; z-index: 1;
+    padding: 14px 26px 0 26px;
+    display: flex; flex-direction: column; gap: 13px;
   }
+  /* ---------- hero (story 1) ---------- */
+  .card.hero {
+    height: 238px; border-radius: 18px; overflow: hidden; position: relative;
+    border-top: none;
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='250'%3E%3Ctext x='100' y='218' font-family='Arial, sans-serif' font-size='235' font-weight='800' fill='%23ffffff' fill-opacity='0.07' text-anchor='middle'%3E1%3C/text%3E%3C/svg%3E") no-repeat right 108px bottom -18px,
+      linear-gradient(105deg, #2b0607 0%, #5c0d10 52%, #8f1d18 100%);
+    color: #fff; padding: 18px 24px;
+    box-shadow: 0 10px 26px rgba(0,0,0,.45);
+  }
+  .card.hero .meta { display: flex; align-items: center; gap: 10px; }
+  .pill-top {
+    background: linear-gradient(90deg, #ffd23e, #ff9d00); color: #221100;
+    font-size: 14px; font-weight: 800; letter-spacing: 2px;
+    padding: 5px 13px; border-radius: 999px; text-transform: uppercase;
+  }
+  .card.hero .tag { color: #ffb3ab; font-size: 14.5px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; }
+  .card.hero h2 {
+    font-size: 39px; line-height: 1.12; font-weight: 800; letter-spacing: -0.3px;
+    margin: 10px 0 8px 0; max-width: 720px;
+    text-shadow: 0 2px 10px rgba(0,0,0,.35);
+  }
+  .card.hero p { font-size: 19px; line-height: 1.42; color: #f6ddd8; max-width: 700px; }
+  .card.hero .orb {
+    position: absolute; right: 30px; top: 52px;
+    width: 128px; height: 128px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ff8a5c, #d62828 70%);
+    box-shadow: 0 0 0 10px rgba(255,120,60,.22), 0 0 44px rgba(255,90,40,.55);
+    font-size: 66px; text-align: center; line-height: 128px;
+  }
+  /* ---------- story cards ---------- */
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; height: 196px; }
+  .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; height: 202px; }
   .card {
-    background: #fff; border: 1px solid #d8d2c4; border-top: 6px solid #d62828;
-    padding: 14px 18px 10px 18px; overflow: hidden; position: relative;
+    background: #ffffff; border-radius: 16px; overflow: hidden; position: relative;
+    border-top: 7px solid #2f80ed; padding: 12px 17px 10px 17px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.35);
   }
-  .card.c-blue { border-top-color: #1d6fb8; }
-  .card.c-green { border-top-color: #2a7f4f; }
-  .card.c-purple { border-top-color: #6c4ab6; }
-  .card.c-orange { border-top-color: #e07b00; }
-  .card.c-teal { border-top-color: #0f766e; }
+  .card .meta { display: flex; align-items: center; gap: 9px; }
+  .ic {
+    width: 35px; height: 35px; border-radius: 50%; flex: 0 0 35px;
+    font-size: 19px; text-align: center; line-height: 35px;
+  }
   .tag {
-    font-size: 14px; font-weight: 800; letter-spacing: 2.5px;
-    color: #d62828; text-transform: uppercase;
+    font-size: 12.5px; font-weight: 800; letter-spacing: 1.8px; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 999px;
   }
-  .card.c-blue .tag { color: #1d6fb8; }
-  .card.c-green .tag { color: #2a7f4f; }
-  .card.c-purple .tag { color: #6c4ab6; }
-  .card.c-orange .tag { color: #e07b00; }
-  .card.c-teal .tag { color: #0f766e; }
   .num {
-    position: absolute; right: 14px; top: 10px;
-    width: 34px; height: 34px; border-radius: 50%;
-    background: #10233f; color: #fff; font-size: 19px; font-weight: 800;
-    text-align: center; line-height: 34px;
+    position: absolute; right: 13px; top: 11px;
+    width: 31px; height: 31px; border-radius: 50%;
+    color: #fff; font-size: 17px; font-weight: 800;
+    text-align: center; line-height: 31px;
   }
-  h2 {
-    font-size: 26px; line-height: 1.14; font-weight: 800;
-    letter-spacing: -0.3px; margin: 5px 0 7px 0; padding-right: 40px;
-  }
-  p { font-size: 18.5px; line-height: 1.32; color: #3a4457; }
-  /* ---------- also today ---------- */
+  .card h2 { font-size: 23.5px; line-height: 1.15; font-weight: 800; letter-spacing: -0.3px; margin: 8px 0 6px 0; }
+  .card p { font-size: 16.5px; line-height: 1.32; color: #3a4457; }
+  .row3 .card h2 { font-size: 20px; margin: 7px 0 5px 0; }
+  .row3 .card p { font-size: 15px; line-height: 1.3; }
+  /* colour themes */
+  .t-blue   { border-top-color: #2f80ed; } .t-blue .ic { background: #dbeafe; } .t-blue .tag { background: #dbeafe; color: #1d5fb8; } .t-blue .num { background: #2f80ed; }
+  .t-green  { border-top-color: #00a676; } .t-green .ic { background: #d3f4e6; } .t-green .tag { background: #d3f4e6; color: #00754f; } .t-green .num { background: #00a676; }
+  .t-orange { border-top-color: #f2762e; } .t-orange .ic { background: #ffe8d6; } .t-orange .tag { background: #ffe8d6; color: #b34e0e; } .t-orange .num { background: #f2762e; }
+  .t-purple { border-top-color: #7b2ff7; } .t-purple .ic { background: #eadcff; } .t-purple .tag { background: #eadcff; color: #5b1cb8; } .t-purple .num { background: #7b2ff7; }
+  .t-teal   { border-top-color: #0e9594; } .t-teal .ic { background: #d2f2f1; } .t-teal .tag { background: #d2f2f1; color: #0a6d6c; } .t-teal .num { background: #0e9594; }
+  /* ---------- also today ticker ---------- */
   .also {
-    margin: 14px 28px 0 28px; background: #10233f; color: #fff;
-    padding: 11px 20px 12px 20px;
+    margin: 13px 26px 0 26px; position: relative; z-index: 1;
+    height: 98px; border-radius: 16px; overflow: hidden;
+    background: linear-gradient(95deg, #131a4d, #251a5e);
+    display: flex; align-items: stretch;
+    box-shadow: 0 8px 20px rgba(0,0,0,.35);
   }
-  .also h3 {
-    font-size: 15px; letter-spacing: 3px; color: #ffb703;
-    text-transform: uppercase; margin-bottom: 7px;
+  .also .lbl {
+    flex: 0 0 128px; background: linear-gradient(160deg, #e5383b, #a4133c);
+    color: #fff; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 2px;
+    font-weight: 800; letter-spacing: 2px; text-align: center;
   }
-  .also ul { list-style: none; }
+  .also .lbl .b1 { font-size: 19px; }
+  .also .lbl .b2 { font-size: 19px; }
+  .also .lbl .chev { color: #ffd23e; font-size: 15px; letter-spacing: 3px; }
+  .also ul { list-style: none; padding: 10px 18px 8px 18px; display: flex; flex-direction: column; justify-content: center; }
   .also li {
-    font-size: 17.5px; line-height: 1.35; padding-left: 16px;
-    position: relative; margin-top: 3px;
+    font-size: 16.5px; line-height: 1.32; color: #eef1ff;
+    padding-left: 20px; position: relative; margin: 2.5px 0;
   }
   .also li::before {
-    content: ""; position: absolute; left: 0; top: 9px;
-    width: 7px; height: 7px; background: #d62828; border-radius: 50%;
+    content: "▸"; position: absolute; left: 0; top: 0; color: #ffb703; font-weight: 800;
   }
   /* ---------- footer ---------- */
   footer {
+    position: relative; z-index: 1;
     margin-top: 10px; padding: 0 28px;
-    font-size: 13.5px; color: #7a7568; text-align: center; line-height: 1.4;
+    font-size: 13px; color: #8f97b8; text-align: center; line-height: 1.4;
   }
 </style>
 </head>
 <body>
   <header>
-    <div class="kicker">World News &middot; One Day in One Image</div>
-    <h1>WORLD NEWS</h1>
+    <div class="kicker">The World in One Day &middot; One Image</div>
+    <h1>WORLD <span class="grad">NEWS</span></h1>
+    <div class="sub">Six stories that defined the day &mdash; events of 17 November 2026</div>
     <div class="date">
       <div class="day">TUESDAY</div>
       <div class="dateline">17 NOVEMBER</div>
       <div class="yr">2026</div>
     </div>
-    <div class="sub">Six stories that defined the day &mdash; events of 17 November 2026</div>
   </header>
-  <div class="rule"></div>
+  <div class="rainbow"></div>
 
   <main>
-    <section class="card">
-      <span class="num">1</span>
-      <div class="tag">Middle East</div>
+    <section class="card hero">
+      <div class="meta">
+        <span class="pill-top">&#9733; Top Story</span>
+        <span class="tag">Middle East &middot; Conflict</span>
+      </div>
       <h2>Iran fires drones at a U.S. radar base in Bahrain</h2>
       <p>Tehran&rsquo;s third strike on American targets in the kingdom in days. Bahrain says the attack was intercepted, with no casualties or damage.</p>
+      <div class="orb">&#128752;</div>
     </section>
 
-    <section class="card c-blue">
-      <span class="num">2</span>
-      <div class="tag">Russia&ndash;Ukraine War</div>
-      <h2>Ukraine badly damages the Kerch Bridge to Crimea</h2>
-      <p>Kyiv hails an &ldquo;unprecedented operation&rdquo; after a second day of strikes on the bridge. Russia answers by hitting bridges in Kyiv.</p>
-    </section>
+    <div class="row2">
+      <section class="card t-blue">
+        <span class="num">2</span>
+        <div class="meta"><span class="ic">&#128165;</span><span class="tag">Russia&ndash;Ukraine War</span></div>
+        <h2>Ukraine badly damages the Kerch Bridge to Crimea</h2>
+        <p>Kyiv hails an &ldquo;unprecedented operation&rdquo; after a second day of strikes on the bridge. Russia answers by hitting bridges in Kyiv.</p>
+      </section>
 
-    <section class="card c-green">
-      <span class="num">3</span>
-      <div class="tag">Diplomacy</div>
-      <h2>Trump flies to Asia for nuclear talks</h2>
-      <p>The U.S. president heads to APEC in Shenzhen ahead of a planned 19 November meeting with Xi Jinping and Vladimir Putin.</p>
-    </section>
+      <section class="card t-green">
+        <span class="num">3</span>
+        <div class="meta"><span class="ic">&#9992;&#65038;</span><span class="tag">Diplomacy</span></div>
+        <h2>Trump flies to Asia for nuclear talks</h2>
+        <p>The U.S. president heads to APEC in Shenzhen ahead of a planned 19 November meeting with Xi Jinping and Vladimir Putin.</p>
+      </section>
+    </div>
 
-    <section class="card c-purple">
-      <span class="num">4</span>
-      <div class="tag">Middle East</div>
-      <h2>Houthis strike a Saudi oil pipeline</h2>
-      <p>Drones hit the East&ndash;West pipeline as Houthi forces push toward Aden and Yemeni government troops pull back from the Red Sea coast.</p>
-    </section>
+    <div class="row3">
+      <section class="card t-orange">
+        <span class="num">4</span>
+        <div class="meta"><span class="ic">&#128738;&#65038;</span><span class="tag">Energy &middot; Middle East</span></div>
+        <h2>Houthis strike a Saudi oil pipeline</h2>
+        <p>Drones hit the East&ndash;West pipeline as Houthi forces push toward Aden and Yemeni government troops pull back from the Red Sea coast.</p>
+      </section>
 
-    <section class="card c-orange">
-      <span class="num">5</span>
-      <div class="tag">Asia</div>
-      <h2>Japan scrambles jets over Russian airspace violation</h2>
-      <p>Tokyo launches fighter jets and protests strongly after two suspected Russian aircraft enter its airspace.</p>
-    </section>
+      <section class="card t-purple">
+        <span class="num">5</span>
+        <div class="meta"><span class="ic">&#128747;</span><span class="tag">Asia-Pacific</span></div>
+        <h2>Japan scrambles jets over Russian airspace violation</h2>
+        <p>Tokyo launches fighter jets and protests strongly after two suspected Russian aircraft enter its airspace.</p>
+      </section>
 
-    <section class="card c-teal">
-      <span class="num">6</span>
-      <div class="tag">Europe</div>
-      <h2>Estonia to close every border crossing with Russia</h2>
-      <p>Tallinn blames Moscow for a foiled arson plot, the latest in a string of hybrid incidents on NATO&rsquo;s eastern edge.</p>
-    </section>
+      <section class="card t-teal">
+        <span class="num">6</span>
+        <div class="meta"><span class="ic">&#128706;</span><span class="tag">Europe</span></div>
+        <h2>Estonia to close every border crossing with Russia</h2>
+        <p>Tallinn blames Moscow for a foiled arson plot, the latest in a string of hybrid incidents on NATO&rsquo;s eastern edge.</p>
+      </section>
+    </div>
   </main>
 
   <section class="also">
-    <h3>Also today</h3>
+    <div class="lbl"><span class="b1">ALSO</span><span class="b2">TODAY</span><span class="chev">&#9656;&#9656;&#9656;</span></div>
     <ul>
       <li>G&eacute;rard Depardieu pleads guilty to sexual assault in a Paris court.</li>
       <li>UK sanctions eight Israeli firms building settlements in the West Bank.</li>
